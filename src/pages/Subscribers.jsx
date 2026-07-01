@@ -7,6 +7,7 @@ import {
   cancelSubscriber,
   changePlan,
   fetchProrationPreview,
+  createSubscriber,
 } from "../api";
 import Badge from "../components/Badge";
 import Modal from "../components/Modal";
@@ -15,6 +16,124 @@ const fmt = (n) =>
   new Intl.NumberFormat("en-NG", { style: "currency", currency: "NGN", maximumFractionDigits: 0 }).format(n);
 
 const STATUSES = ["active", "past_due", "cancelled", "suspended", "trial"];
+
+// ─── Create Subscriber Modal ─────────────────────────────────────────────────
+function CreateSubscriberModal({ tenants, plans, onClose, onCreated }) {
+  const [form, setForm] = useState({
+    tenant_id: tenants[0]?.id || "",
+    plan_id: "",
+    name: "",
+    email: "",
+    phone: "",
+  });
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
+
+  const tenantPlans = plans.filter((p) => p.tenant_id === form.tenant_id);
+
+  const submit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    setError("");
+    try {
+      const sub = await createSubscriber(form);
+      onCreated(sub);
+      onClose();
+    } catch (err) {
+      setError(err.message || "Failed to create subscriber");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return (
+    <Modal title="New Subscriber" onClose={onClose}>
+      <form onSubmit={submit} className="space-y-4">
+        <div>
+          <label className="block text-xs font-medium text-gray-400 mb-1.5">Tenant *</label>
+          <select
+            required
+            value={form.tenant_id}
+            onChange={(e) => setForm({ ...form, tenant_id: e.target.value, plan_id: "" })}
+            className="w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-violet-500 transition-colors"
+          >
+            <option value="">— Select tenant —</option>
+            {tenants.map((t) => (
+              <option key={t.id} value={t.id}>{t.name}</option>
+            ))}
+          </select>
+        </div>
+        <div>
+          <label className="block text-xs font-medium text-gray-400 mb-1.5">Plan *</label>
+          <select
+            required
+            value={form.plan_id}
+            onChange={(e) => setForm({ ...form, plan_id: e.target.value })}
+            disabled={!form.tenant_id}
+            className="w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-violet-500 transition-colors disabled:opacity-40"
+          >
+            <option value="">— Select plan —</option>
+            {tenantPlans.map((p) => (
+              <option key={p.id} value={p.id}>
+                {p.name} — {fmt(p.price)} / {p.billing_cycle}
+              </option>
+            ))}
+          </select>
+        </div>
+        <div>
+          <label className="block text-xs font-medium text-gray-400 mb-1.5">Full Name *</label>
+          <input
+            required
+            value={form.name}
+            onChange={(e) => setForm({ ...form, name: e.target.value })}
+            placeholder="Jane Doe"
+            className="w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-sm text-white placeholder-gray-600 focus:outline-none focus:border-violet-500 transition-colors"
+          />
+        </div>
+        <div>
+          <label className="block text-xs font-medium text-gray-400 mb-1.5">Email Address *</label>
+          <input
+            required
+            type="email"
+            value={form.email}
+            onChange={(e) => setForm({ ...form, email: e.target.value })}
+            placeholder="jane@example.com"
+            className="w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-sm text-white placeholder-gray-600 focus:outline-none focus:border-violet-500 transition-colors"
+          />
+        </div>
+        <div>
+          <label className="block text-xs font-medium text-gray-400 mb-1.5">Phone</label>
+          <input
+            type="tel"
+            value={form.phone}
+            onChange={(e) => setForm({ ...form, phone: e.target.value })}
+            placeholder="+2348012345678"
+            className="w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-sm text-white placeholder-gray-600 focus:outline-none focus:border-violet-500 transition-colors"
+          />
+        </div>
+        {error && (
+          <p className="text-red-400 text-xs bg-red-500/10 rounded-lg px-3 py-2">{error}</p>
+        )}
+        <div className="flex gap-3 pt-2">
+          <button
+            type="button"
+            onClick={onClose}
+            className="flex-1 bg-gray-800 hover:bg-gray-700 text-gray-300 rounded-lg px-4 py-2 text-sm transition-colors"
+          >
+            Cancel
+          </button>
+          <button
+            type="submit"
+            disabled={loading}
+            className="flex-1 bg-violet-600 hover:bg-violet-500 disabled:opacity-50 disabled:cursor-not-allowed text-white rounded-lg px-4 py-2 text-sm font-medium transition-colors"
+          >
+            {loading ? "Creating…" : "Create Subscriber"}
+          </button>
+        </div>
+      </form>
+    </Modal>
+  );
+}
 
 // ─── Detail Panel ────────────────────────────────────────────────────────────
 function SubscriberDetail({ sub, plans, onClose, onRefresh }) {
@@ -263,6 +382,7 @@ export default function Subscribers() {
   const [statusFilter, setStatusFilter] = useState("");
   const [tenantFilter, setTenantFilter] = useState("");
   const [selectedSub, setSelectedSub] = useState(null);
+  const [showCreate, setShowCreate] = useState(false);
   const [rev, setRev] = useState(0);
 
   const load = () => {
@@ -297,6 +417,16 @@ export default function Subscribers() {
           <h1 className="text-2xl font-bold text-white tracking-tight">Subscribers</h1>
           <p className="text-gray-500 text-sm mt-1">{subscribers.length} total subscribers</p>
         </div>
+        <button
+          onClick={() => setShowCreate(true)}
+          className="flex items-center gap-2 bg-violet-600 hover:bg-violet-500 text-white rounded-xl px-4 py-2 text-sm font-medium transition-colors"
+        >
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="w-4 h-4">
+            <line x1="12" y1="5" x2="12" y2="19" />
+            <line x1="5" y1="12" x2="19" y2="12" />
+          </svg>
+          New Subscriber
+        </button>
       </div>
 
       {/* Filters */}
@@ -390,6 +520,15 @@ export default function Subscribers() {
           </tbody>
         </table>
       </div>
+
+      {showCreate && (
+        <CreateSubscriberModal
+          tenants={tenants}
+          plans={plans}
+          onClose={() => setShowCreate(false)}
+          onCreated={() => setRev((r) => r + 1)}
+        />
+      )}
 
       {selectedSub && (
         <SubscriberDetail
