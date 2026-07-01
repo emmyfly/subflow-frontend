@@ -244,7 +244,7 @@ function SubscriberDetail({ sub, plans, onClose, onRefresh }) {
           {/* Details Grid */}
           <div className="grid grid-cols-2 gap-3">
             {[
-              { label: "Plan", value: sub.plan_name || sub.plan || "—" },
+              { label: "Plan", value: plans.find((p) => p.id === sub.plan_id)?.name || "—" },
               { label: "Amount", value: sub.amount ? fmt(sub.amount) : "—" },
               { label: "Next Billing", value: sub.next_billing_date ? new Date(sub.next_billing_date).toLocaleDateString() : "—" },
               { label: "Billing Cycle", value: sub.billing_cycle || "—" },
@@ -259,12 +259,15 @@ function SubscriberDetail({ sub, plans, onClose, onRefresh }) {
           </div>
 
           {/* Virtual Account */}
-          {(sub.virtual_account_number || sub.nomba_virtual_account) && (
+          {sub.nomba_account_number && (
             <div className="bg-gray-800/50 rounded-lg px-4 py-3">
-              <div className="text-gray-500 text-xs mb-1">Nomba Virtual Account Number</div>
+              <div className="text-gray-500 text-xs mb-1">Nomba Virtual Account</div>
               <div className="text-white font-mono text-sm tracking-wider">
-                {sub.virtual_account_number || sub.nomba_virtual_account}
+                {sub.nomba_account_number}
               </div>
+              {sub.nomba_bank_name && (
+                <div className="text-gray-500 text-xs mt-0.5">{sub.nomba_bank_name}</div>
+              )}
             </div>
           )}
 
@@ -506,14 +509,21 @@ export default function Subscribers() {
                       <div className="font-medium text-white">{s.name || "—"}</div>
                       <div className="text-gray-500 text-xs">{s.email}</div>
                     </td>
-                    <td className="px-5 py-3.5 text-gray-400">{s.plan_name || s.plan || "—"}</td>
+                    <td className="px-5 py-3.5 text-gray-400">
+                      {plans.find((p) => p.id === s.plan_id)?.name || "—"}
+                    </td>
                     <td className="px-5 py-3.5"><Badge status={s.status} /></td>
                     <td className="px-5 py-3.5 text-gray-400 text-xs">
                       {s.next_billing_date ? new Date(s.next_billing_date).toLocaleDateString() : "—"}
                     </td>
                     <td className="px-5 py-3.5 text-gray-300">{s.amount ? fmt(s.amount) : "—"}</td>
-                    <td className="px-5 py-3.5 font-mono text-xs text-gray-500">
-                      {s.virtual_account_number || s.nomba_virtual_account || "—"}
+                    <td className="px-5 py-3.5 text-xs text-gray-500">
+                      {s.nomba_account_number
+                        ? <span className="font-mono">{s.nomba_account_number}</span>
+                        : "—"}
+                      {s.nomba_bank_name && (
+                        <div className="text-gray-600 mt-0.5">{s.nomba_bank_name}</div>
+                      )}
                     </td>
                   </tr>
                 ))}
