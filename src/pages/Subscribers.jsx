@@ -55,7 +55,7 @@ function CreateSubscriberModal({ tenants, plans, onClose, onCreated }) {
             required
             value={form.tenant_id}
             onChange={(e) => setForm({ ...form, tenant_id: e.target.value, plan_id: "" })}
-            className="w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-violet-500 transition-colors"
+            className="w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-brand-500 transition-colors"
           >
             <option value="">— Select tenant —</option>
             {tenants.map((t) => (
@@ -70,7 +70,7 @@ function CreateSubscriberModal({ tenants, plans, onClose, onCreated }) {
             value={form.plan_id}
             onChange={(e) => setForm({ ...form, plan_id: e.target.value })}
             disabled={!form.tenant_id}
-            className="w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-violet-500 transition-colors disabled:opacity-40"
+            className="w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-brand-500 transition-colors disabled:opacity-40"
           >
             <option value="">— Select plan —</option>
             {tenantPlans.map((p) => (
@@ -87,7 +87,7 @@ function CreateSubscriberModal({ tenants, plans, onClose, onCreated }) {
             value={form.name}
             onChange={(e) => setForm({ ...form, name: e.target.value })}
             placeholder="Jane Doe"
-            className="w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-sm text-white placeholder-gray-600 focus:outline-none focus:border-violet-500 transition-colors"
+            className="w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-sm text-white placeholder-gray-600 focus:outline-none focus:border-brand-500 transition-colors"
           />
         </div>
         <div>
@@ -98,7 +98,7 @@ function CreateSubscriberModal({ tenants, plans, onClose, onCreated }) {
             value={form.email}
             onChange={(e) => setForm({ ...form, email: e.target.value })}
             placeholder="jane@example.com"
-            className="w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-sm text-white placeholder-gray-600 focus:outline-none focus:border-violet-500 transition-colors"
+            className="w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-sm text-white placeholder-gray-600 focus:outline-none focus:border-brand-500 transition-colors"
           />
         </div>
         <div>
@@ -108,7 +108,7 @@ function CreateSubscriberModal({ tenants, plans, onClose, onCreated }) {
             value={form.phone}
             onChange={(e) => setForm({ ...form, phone: e.target.value })}
             placeholder="+2348012345678"
-            className="w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-sm text-white placeholder-gray-600 focus:outline-none focus:border-violet-500 transition-colors"
+            className="w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-sm text-white placeholder-gray-600 focus:outline-none focus:border-brand-500 transition-colors"
           />
         </div>
         {error && (
@@ -125,7 +125,7 @@ function CreateSubscriberModal({ tenants, plans, onClose, onCreated }) {
           <button
             type="submit"
             disabled={loading}
-            className="flex-1 bg-violet-600 hover:bg-violet-500 disabled:opacity-50 disabled:cursor-not-allowed text-white rounded-lg px-4 py-2 text-sm font-medium transition-colors"
+            className="flex-1 bg-brand-500 hover:bg-brand-400 disabled:opacity-50 disabled:cursor-not-allowed text-gray-900 rounded-lg px-4 py-2 text-sm font-medium transition-colors"
           >
             {loading ? "Creating…" : "Create Subscriber"}
           </button>
@@ -324,7 +324,7 @@ function SubscriberDetail({ sub, plans, onClose, onRefresh }) {
                 <select
                   value={newPlanId}
                   onChange={(e) => { setNewPlanId(e.target.value); loadProration(e.target.value); }}
-                  className="w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-violet-500 transition-colors"
+                  className="w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-brand-500 transition-colors"
                 >
                   <option value="">— Select a plan —</option>
                   {plans.map((p) => (
@@ -339,8 +339,8 @@ function SubscriberDetail({ sub, plans, onClose, onRefresh }) {
                 <div className="bg-gray-800 rounded-lg p-3 animate-pulse h-16" />
               )}
               {proration && !prorationLoading && (
-                <div className="bg-violet-500/10 border border-violet-500/20 rounded-lg p-4 space-y-2">
-                  <p className="text-violet-400 text-xs font-semibold uppercase tracking-wide">Proration Preview</p>
+                <div className="bg-brand-500/10 border border-brand-500/20 rounded-lg p-4 space-y-2">
+                  <p className="text-brand-500 text-xs font-semibold uppercase tracking-wide">Proration Preview</p>
                   <div className="grid grid-cols-2 gap-2 text-xs">
                     {Object.entries(proration).map(([k, v]) => (
                       <div key={k}>
@@ -362,7 +362,7 @@ function SubscriberDetail({ sub, plans, onClose, onRefresh }) {
                 <button
                   onClick={handleChangePlan}
                   disabled={!newPlanId || actionLoading}
-                  className="flex-1 bg-violet-600 hover:bg-violet-500 disabled:opacity-50 text-white rounded-lg px-4 py-2 text-sm font-medium transition-colors"
+                  className="flex-1 bg-brand-500 hover:bg-brand-400 disabled:opacity-50 text-gray-900 rounded-lg px-4 py-2 text-sm font-medium transition-colors"
                 >
                   {actionLoading ? "Changing…" : "Confirm Change"}
                 </button>
@@ -422,7 +422,7 @@ export default function Subscribers() {
         </div>
         <button
           onClick={() => setShowCreate(true)}
-          className="flex items-center gap-2 bg-violet-600 hover:bg-violet-500 text-white rounded-xl px-4 py-2 text-sm font-medium transition-colors"
+          className="flex items-center gap-2 bg-brand-500 hover:bg-brand-400 text-gray-900 rounded-xl px-4 py-2 text-sm font-medium transition-colors"
         >
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="w-4 h-4">
             <line x1="12" y1="5" x2="12" y2="19" />
@@ -442,13 +442,13 @@ export default function Subscribers() {
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder="Search name or email…"
-            className="bg-gray-900 border border-gray-800 rounded-xl pl-9 pr-3 py-2 text-sm text-white placeholder-gray-600 focus:outline-none focus:border-violet-500 transition-colors w-56"
+            className="bg-gray-900 border border-gray-800 rounded-xl pl-9 pr-3 py-2 text-sm text-white placeholder-gray-600 focus:outline-none focus:border-brand-500 transition-colors w-56"
           />
         </div>
         <select
           value={statusFilter}
           onChange={(e) => setStatusFilter(e.target.value)}
-          className="bg-gray-900 border border-gray-800 rounded-xl px-3 py-2 text-sm text-gray-300 focus:outline-none focus:border-violet-500 transition-colors"
+          className="bg-gray-900 border border-gray-800 rounded-xl px-3 py-2 text-sm text-gray-300 focus:outline-none focus:border-brand-500 transition-colors"
         >
           <option value="">All Statuses</option>
           {STATUSES.map((s) => (
@@ -458,7 +458,7 @@ export default function Subscribers() {
         <select
           value={tenantFilter}
           onChange={(e) => setTenantFilter(e.target.value)}
-          className="bg-gray-900 border border-gray-800 rounded-xl px-3 py-2 text-sm text-gray-300 focus:outline-none focus:border-violet-500 transition-colors"
+          className="bg-gray-900 border border-gray-800 rounded-xl px-3 py-2 text-sm text-gray-300 focus:outline-none focus:border-brand-500 transition-colors"
         >
           <option value="">All Tenants</option>
           {tenants.map((t) => (

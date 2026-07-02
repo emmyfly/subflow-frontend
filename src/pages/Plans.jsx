@@ -44,7 +44,7 @@ function PlanForm({ initial, tenants, onSubmit, onClose }) {
           required
           value={form.tenant_id}
           onChange={(e) => setForm({ ...form, tenant_id: e.target.value })}
-          className="w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-violet-500 transition-colors"
+          className="w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-brand-500 transition-colors"
         >
           {tenants.map((t) => (
             <option key={t.id} value={t.id}>{t.name}</option>
@@ -58,7 +58,7 @@ function PlanForm({ initial, tenants, onSubmit, onClose }) {
           value={form.name}
           onChange={(e) => setForm({ ...form, name: e.target.value })}
           placeholder="Pro Plan"
-          className="w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-sm text-white placeholder-gray-600 focus:outline-none focus:border-violet-500 transition-colors"
+          className="w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-sm text-white placeholder-gray-600 focus:outline-none focus:border-brand-500 transition-colors"
         />
       </div>
       <div>
@@ -68,7 +68,7 @@ function PlanForm({ initial, tenants, onSubmit, onClose }) {
           onChange={(e) => setForm({ ...form, description: e.target.value })}
           placeholder="Describe what's included…"
           rows={2}
-          className="w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-sm text-white placeholder-gray-600 focus:outline-none focus:border-violet-500 transition-colors resize-none"
+          className="w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-sm text-white placeholder-gray-600 focus:outline-none focus:border-brand-500 transition-colors resize-none"
         />
       </div>
       <div className="grid grid-cols-2 gap-3">
@@ -82,7 +82,7 @@ function PlanForm({ initial, tenants, onSubmit, onClose }) {
             value={form.price}
             onChange={(e) => setForm({ ...form, price: e.target.value })}
             placeholder="5000"
-            className="w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-sm text-white placeholder-gray-600 focus:outline-none focus:border-violet-500 transition-colors"
+            className="w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-sm text-white placeholder-gray-600 focus:outline-none focus:border-brand-500 transition-colors"
           />
         </div>
         <div>
@@ -90,7 +90,7 @@ function PlanForm({ initial, tenants, onSubmit, onClose }) {
           <select
             value={form.billing_cycle}
             onChange={(e) => setForm({ ...form, billing_cycle: e.target.value })}
-            className="w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-violet-500 transition-colors"
+            className="w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-brand-500 transition-colors"
           >
             {CYCLES.map((c) => (
               <option key={c} value={c}>{c.charAt(0).toUpperCase() + c.slice(1)}</option>
@@ -103,7 +103,7 @@ function PlanForm({ initial, tenants, onSubmit, onClose }) {
         <select
           value={form.status}
           onChange={(e) => setForm({ ...form, status: e.target.value })}
-          className="w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-violet-500 transition-colors"
+          className="w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-brand-500 transition-colors"
         >
           <option value="active">Active</option>
           <option value="inactive">Inactive</option>
@@ -116,7 +116,7 @@ function PlanForm({ initial, tenants, onSubmit, onClose }) {
         <button type="button" onClick={onClose} className="flex-1 bg-gray-800 hover:bg-gray-700 text-gray-300 rounded-lg px-4 py-2 text-sm transition-colors">
           Cancel
         </button>
-        <button type="submit" disabled={loading} className="flex-1 bg-violet-600 hover:bg-violet-500 disabled:opacity-50 text-white rounded-lg px-4 py-2 text-sm font-medium transition-colors">
+        <button type="submit" disabled={loading} className="flex-1 bg-brand-500 hover:bg-brand-400 disabled:opacity-50 text-gray-900 rounded-lg px-4 py-2 text-sm font-medium transition-colors">
           {loading ? "Saving…" : initial ? "Update Plan" : "Create Plan"}
         </button>
       </div>
@@ -126,7 +126,7 @@ function PlanForm({ initial, tenants, onSubmit, onClose }) {
 
 const cycleColor = {
   weekly: "text-blue-400 bg-blue-500/10",
-  monthly: "text-violet-400 bg-violet-500/10",
+  monthly: "text-brand-500 bg-brand-500/10",
   quarterly: "text-emerald-400 bg-emerald-500/10",
   annual: "text-orange-400 bg-orange-500/10",
 };
@@ -232,7 +232,7 @@ export default function Plans() {
         </div>
         <button
           onClick={() => setModal("create")}
-          className="flex items-center gap-2 bg-violet-600 hover:bg-violet-500 text-white rounded-xl px-4 py-2 text-sm font-medium transition-colors"
+          className="flex items-center gap-2 bg-brand-500 hover:bg-brand-400 text-gray-900 rounded-xl px-4 py-2 text-sm font-medium transition-colors"
         >
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="w-4 h-4">
             <line x1="12" y1="5" x2="12" y2="19" /><line x1="5" y1="12" x2="19" y2="12" />
@@ -247,7 +247,7 @@ export default function Plans() {
         <select
           value={selectedTenant}
           onChange={(e) => handleTenantChange(e.target.value)}
-          className="bg-gray-900 border border-gray-800 rounded-lg px-3 py-1.5 text-sm text-gray-300 focus:outline-none focus:border-violet-500 transition-colors"
+          className="bg-gray-900 border border-gray-800 rounded-lg px-3 py-1.5 text-sm text-gray-300 focus:outline-none focus:border-brand-500 transition-colors"
         >
           <option value="">All Tenants</option>
           {tenants.map((t) => (

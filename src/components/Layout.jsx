@@ -23,7 +23,7 @@ export default function Layout({ children }) {
             </svg>
           </button>
           <div className="flex items-center gap-2">
-            <div className="w-6 h-6 rounded-md bg-gradient-to-br from-violet-500 to-indigo-600 flex items-center justify-center text-white font-bold text-xs">
+            <div className="w-6 h-6 rounded-md bg-brand-500 flex items-center justify-center text-gray-900 font-bold text-xs">
               S
             </div>
             <span className="text-white font-semibold text-sm">SubFlow</span>

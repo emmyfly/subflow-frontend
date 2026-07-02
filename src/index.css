@@ -1,5 +1,18 @@
 @import "tailwindcss";
 
+@theme {
+  --color-brand-50: #fffbea;
+  --color-brand-100: #fff3c4;
+  --color-brand-200: #fce588;
+  --color-brand-300: #fadb5f;
+  --color-brand-400: #ffd91a;
+  --color-brand-500: #ffcc00;
+  --color-brand-600: #e0b400;
+  --color-brand-700: #a68500;
+  --color-brand-800: #7a6200;
+  --color-brand-900: #5c4a00;
+}
+
 @layer base {
   *, *::before, *::after {
     box-sizing: border-box;

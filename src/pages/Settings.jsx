@@ -116,14 +116,14 @@ export default function Settings() {
         {/* Webhook */}
         <Section title="Webhook Configuration">
           <div className="bg-gray-800 rounded-lg p-3 flex items-center justify-between gap-3">
-            <code className="text-xs text-violet-300 font-mono break-all flex-1">{webhookUrl}</code>
+            <code className="text-xs text-brand-400 font-mono break-all flex-1">{webhookUrl}</code>
             <CopyButton text={webhookUrl} />
           </div>
           <div className="text-gray-500 text-xs leading-relaxed">
             Register this URL in your Nomba dashboard to receive payment events. SubFlow processes
-            <code className="text-violet-400 mx-1 bg-gray-800 px-1 py-0.5 rounded">payment.success</code>
+            <code className="text-brand-500 mx-1 bg-gray-800 px-1 py-0.5 rounded">payment.success</code>
             and
-            <code className="text-violet-400 mx-1 bg-gray-800 px-1 py-0.5 rounded">payment.failed</code>
+            <code className="text-brand-500 mx-1 bg-gray-800 px-1 py-0.5 rounded">payment.failed</code>
             events to update subscriber status automatically.
           </div>
         </Section>

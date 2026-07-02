@@ -10,7 +10,7 @@ const EVENT_LABELS = {
   payment_failed: { label: "Payment Failed", color: "text-red-400 bg-red-500/10" },
   subscription_created: { label: "Subscription Created", color: "text-blue-400 bg-blue-500/10" },
   subscription_cancelled: { label: "Cancelled", color: "text-gray-400 bg-gray-700" },
-  plan_changed: { label: "Plan Changed", color: "text-violet-400 bg-violet-500/10" },
+  plan_changed: { label: "Plan Changed", color: "text-brand-500 bg-brand-500/10" },
 };
 
 function EventTag({ type }) {
@@ -104,13 +104,13 @@ export default function Payments() {
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             placeholder="Search subscriber or ref…"
-            className="bg-gray-900 border border-gray-800 rounded-xl pl-9 pr-3 py-2 text-sm text-white placeholder-gray-600 focus:outline-none focus:border-violet-500 transition-colors w-60"
+            className="bg-gray-900 border border-gray-800 rounded-xl pl-9 pr-3 py-2 text-sm text-white placeholder-gray-600 focus:outline-none focus:border-brand-500 transition-colors w-60"
           />
         </div>
         <select
           value={statusFilter}
           onChange={(e) => setStatusFilter(e.target.value)}
-          className="bg-gray-900 border border-gray-800 rounded-xl px-3 py-2 text-sm text-gray-300 focus:outline-none focus:border-violet-500 transition-colors"
+          className="bg-gray-900 border border-gray-800 rounded-xl px-3 py-2 text-sm text-gray-300 focus:outline-none focus:border-brand-500 transition-colors"
         >
           <option value="">All Statuses</option>
           <option value="success">Success</option>
@@ -121,7 +121,7 @@ export default function Payments() {
         <select
           value={tenantFilter}
           onChange={(e) => setTenantFilter(e.target.value)}
-          className="bg-gray-900 border border-gray-800 rounded-xl px-3 py-2 text-sm text-gray-300 focus:outline-none focus:border-violet-500 transition-colors"
+          className="bg-gray-900 border border-gray-800 rounded-xl px-3 py-2 text-sm text-gray-300 focus:outline-none focus:border-brand-500 transition-colors"
         >
           <option value="">All Tenants</option>
           {tenants.map((t) => (

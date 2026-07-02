@@ -79,7 +79,7 @@ function CreateTenantModal({ onClose, onCreated }) {
             value={form.name}
             onChange={(e) => setForm({ ...form, name: e.target.value })}
             placeholder="Acme Corp"
-            className="w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-sm text-white placeholder-gray-600 focus:outline-none focus:border-violet-500 transition-colors"
+            className="w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-sm text-white placeholder-gray-600 focus:outline-none focus:border-brand-500 transition-colors"
           />
         </div>
         <div>
@@ -90,7 +90,7 @@ function CreateTenantModal({ onClose, onCreated }) {
             value={form.email}
             onChange={(e) => setForm({ ...form, email: e.target.value })}
             placeholder="admin@acme.com"
-            className="w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-sm text-white placeholder-gray-600 focus:outline-none focus:border-violet-500 transition-colors"
+            className="w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-sm text-white placeholder-gray-600 focus:outline-none focus:border-brand-500 transition-colors"
           />
         </div>
         {error && (
@@ -107,7 +107,7 @@ function CreateTenantModal({ onClose, onCreated }) {
           <button
             type="submit"
             disabled={loading}
-            className="flex-1 bg-violet-600 hover:bg-violet-500 disabled:opacity-50 disabled:cursor-not-allowed text-white rounded-lg px-4 py-2 text-sm font-medium transition-colors"
+            className="flex-1 bg-brand-500 hover:bg-brand-400 disabled:opacity-50 disabled:cursor-not-allowed text-gray-900 rounded-lg px-4 py-2 text-sm font-medium transition-colors"
           >
             {loading ? "Creating…" : "Create Tenant"}
           </button>
@@ -145,7 +145,7 @@ export default function Tenants() {
         </div>
         <button
           onClick={() => setShowCreate(true)}
-          className="flex items-center gap-2 bg-violet-600 hover:bg-violet-500 text-white rounded-xl px-4 py-2 text-sm font-medium transition-colors"
+          className="flex items-center gap-2 bg-brand-500 hover:bg-brand-400 text-gray-900 rounded-xl px-4 py-2 text-sm font-medium transition-colors"
         >
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="w-4 h-4">
             <line x1="12" y1="5" x2="12" y2="19" />
@@ -164,7 +164,7 @@ export default function Tenants() {
           value={search}
           onChange={(e) => setSearch(e.target.value)}
           placeholder="Search tenants…"
-          className="w-full bg-gray-900 border border-gray-800 rounded-xl pl-9 pr-3 py-2 text-sm text-white placeholder-gray-600 focus:outline-none focus:border-violet-500 transition-colors"
+          className="w-full bg-gray-900 border border-gray-800 rounded-xl pl-9 pr-3 py-2 text-sm text-white placeholder-gray-600 focus:outline-none focus:border-brand-500 transition-colors"
         />
       </div>
 
@@ -203,7 +203,7 @@ export default function Tenants() {
                   <tr key={t.id} className="border-b border-gray-800/50 hover:bg-gray-800/30 transition-colors">
                     <td className="px-5 py-3.5">
                       <div className="flex items-center gap-2.5">
-                        <div className="w-7 h-7 rounded-lg bg-gradient-to-br from-violet-500 to-indigo-600 flex items-center justify-center text-white text-xs font-bold flex-shrink-0">
+                        <div className="w-7 h-7 rounded-lg bg-gray-800 ring-1 ring-gray-700 flex items-center justify-center text-brand-500 text-xs font-bold flex-shrink-0">
                           {t.name?.[0]?.toUpperCase() || "?"}
                         </div>
                         <span className="text-white font-medium">{t.name}</span>

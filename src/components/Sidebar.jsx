@@ -97,7 +97,7 @@ export default function Sidebar({ open, onClose }) {
         {/* Logo */}
         <div className="flex items-center justify-between px-5 py-5 border-b border-gray-800">
           <div className="flex items-center gap-2.5">
-            <div className="w-7 h-7 rounded-lg bg-gradient-to-br from-violet-500 to-indigo-600 flex items-center justify-center text-white font-bold text-sm shrink-0">
+            <div className="w-7 h-7 rounded-md bg-brand-500 flex items-center justify-center text-gray-900 font-bold text-sm shrink-0">
               S
             </div>
             <div>
@@ -131,7 +131,7 @@ export default function Sidebar({ open, onClose }) {
               className={({ isActive }) =>
                 `flex items-center gap-2.5 px-2.5 py-2 rounded-lg text-sm transition-colors ${
                   isActive
-                    ? "bg-violet-500/15 text-violet-400 font-medium"
+                    ? "bg-brand-500/15 text-brand-500 font-medium"
                     : "text-gray-400 hover:text-gray-200 hover:bg-gray-800"
                 }`
               }
@@ -145,7 +145,9 @@ export default function Sidebar({ open, onClose }) {
         {/* Footer */}
         <div className="px-5 py-4 border-t border-gray-800">
           <div className="flex items-center gap-2">
-            <div className="w-6 h-6 rounded-full bg-gradient-to-br from-orange-400 to-pink-500 shrink-0" />
+            <div className="w-6 h-6 rounded-full bg-gray-800 ring-1 ring-gray-700 flex items-center justify-center text-brand-500 text-[10px] font-bold shrink-0">
+              A
+            </div>
             <div>
               <div className="text-gray-300 text-xs font-medium">Admin</div>
               <div className="text-gray-600 text-[10px]">Nomba Hackathon 2026</div>
