@@ -122,6 +122,7 @@ export default function Tenants() {
   const [loading, setLoading] = useState(true);
   const [showCreate, setShowCreate] = useState(false);
   const [search, setSearch] = useState("");
+  const [linkCopied, setLinkCopied] = useState(false);
 
   useEffect(() => {
     fetchTenants()
@@ -143,16 +144,32 @@ export default function Tenants() {
           <h1 className="text-2xl font-bold text-white tracking-tight">Tenants</h1>
           <p className="text-gray-500 text-sm mt-1">Manage organisations using SubFlow</p>
         </div>
-        <button
-          onClick={() => setShowCreate(true)}
-          className="flex items-center gap-2 bg-brand-500 hover:bg-brand-400 text-gray-900 rounded-xl px-4 py-2 text-sm font-medium transition-colors"
-        >
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="w-4 h-4">
-            <line x1="12" y1="5" x2="12" y2="19" />
-            <line x1="5" y1="12" x2="19" y2="12" />
-          </svg>
-          New Tenant
-        </button>
+        <div className="flex items-center gap-2.5">
+          <button
+            onClick={() => {
+              navigator.clipboard.writeText(`${window.location.origin}/signup`).catch(() => {});
+              setLinkCopied(true);
+              setTimeout(() => setLinkCopied(false), 2000);
+            }}
+            className="flex items-center gap-2 bg-gray-800 hover:bg-gray-700 text-gray-300 rounded-xl px-4 py-2 text-sm transition-colors"
+          >
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" className="w-4 h-4">
+              <rect x="9" y="9" width="13" height="13" rx="2" />
+              <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1" />
+            </svg>
+            {linkCopied ? "Copied!" : "Copy Signup Link"}
+          </button>
+          <button
+            onClick={() => setShowCreate(true)}
+            className="flex items-center gap-2 bg-brand-500 hover:bg-brand-400 text-gray-900 rounded-xl px-4 py-2 text-sm font-medium transition-colors"
+          >
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" className="w-4 h-4">
+              <line x1="12" y1="5" x2="12" y2="19" />
+              <line x1="5" y1="12" x2="19" y2="12" />
+            </svg>
+            New Tenant
+          </button>
+        </div>
       </div>
 
       {/* Search */}
