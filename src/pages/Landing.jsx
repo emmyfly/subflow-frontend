@@ -84,7 +84,7 @@ export default function Landing() {
             Get your API key
           </Link>
           <a
-            href="https://nomba-subscriptions-engine.onrender.com/docs"
+            href="https://nomba-subscriptions-engine.onrender.com/redoc"
             className="bg-gray-800 hover:bg-gray-700 text-gray-300 rounded-lg px-6 py-3 text-sm font-medium transition-colors"
           >
             View API docs
