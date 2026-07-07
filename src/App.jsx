@@ -8,6 +8,7 @@ import Dunning from "./pages/Dunning";
 import Payments from "./pages/Payments";
 import Settings from "./pages/Settings";
 import Signup from "./pages/Signup";
+import Landing from "./pages/Landing";
 
 function AdminLayout() {
   return (
@@ -21,9 +22,10 @@ export default function App() {
   return (
     <BrowserRouter>
       <Routes>
+        <Route path="/" element={<Landing />} />
         <Route path="/signup" element={<Signup />} />
         <Route element={<AdminLayout />}>
-          <Route path="/" element={<Dashboard />} />
+          <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/tenants" element={<Tenants />} />
           <Route path="/plans" element={<Plans />} />
           <Route path="/subscribers" element={<Subscribers />} />

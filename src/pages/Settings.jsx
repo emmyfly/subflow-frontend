@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 
 const API_BASE = "https://nomba-subscriptions-engine.onrender.com/api";
+const ADMIN_TOKEN = import.meta.env.VITE_ADMIN_TOKEN;
 
 function CopyButton({ text }) {
   const [copied, setCopied] = useState(false);
@@ -67,7 +68,7 @@ export default function Settings() {
 
   useEffect(() => {
     const start = Date.now();
-    fetch(`${API_BASE}/tenants/`)
+    fetch(`${API_BASE}/tenants/`, { headers: { "X-Admin-Token": ADMIN_TOKEN } })
       .then((r) => {
         setApiStatus({ loading: false, ok: r.ok, latency: Date.now() - start });
       })

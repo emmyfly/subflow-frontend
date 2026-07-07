@@ -61,11 +61,15 @@ export default function Signup() {
     try {
       const t = await createTenant({ name: form.name, email: form.email });
       try {
-        const updated = await updateTenant(t.id, {
-          bank_code: form.bank_code,
-          bank_account_number: form.bank_account_number,
-          bank_account_name: form.bank_account_name,
-        });
+        const updated = await updateTenant(
+          t.id,
+          {
+            bank_code: form.bank_code,
+            bank_account_number: form.bank_account_number,
+            bank_account_name: form.bank_account_name,
+          },
+          { bearerToken: t.api_key }
+        );
         setTenant(updated);
       } catch {
         setBankWarning(
