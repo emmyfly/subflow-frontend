@@ -1,6 +1,32 @@
 import { useEffect, useState } from "react";
 import { fetchTenants, createTenant } from "../api";
+import { bankNameForCode } from "../banks";
 import Modal from "../components/Modal";
+
+const bankStatusStyle = {
+  verified: "text-emerald-400 bg-emerald-500/10",
+  unverified: "text-gray-400 bg-gray-800",
+  lookup_failed: "text-orange-400 bg-orange-500/10",
+  mismatch: "text-red-400 bg-red-500/10",
+};
+
+function PayoutAccount({ tenant }) {
+  if (!tenant.bank_account_number) {
+    return <span className="text-gray-600 text-xs">Not set up</span>;
+  }
+  const status = tenant.bank_verification_status || "unverified";
+  return (
+    <div>
+      <div className="text-gray-300 font-mono text-xs">{tenant.bank_account_number}</div>
+      <div className="text-gray-500 text-xs mt-0.5">
+        {bankNameForCode(tenant.bank_code) || tenant.bank_code} · {tenant.bank_account_name}
+      </div>
+      <span className={`inline-block mt-1 text-[10px] font-semibold uppercase tracking-wide px-1.5 py-0.5 rounded ${bankStatusStyle[status] || "text-gray-400 bg-gray-800"}`}>
+        {status.replace(/_/g, " ")}
+      </span>
+    </div>
+  );
+}
 
 function KeyDisplay({ apiKey }) {
   const [visible, setVisible] = useState(false);
@@ -193,6 +219,7 @@ export default function Tenants() {
               <th className="text-left px-5 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">Name</th>
               <th className="text-left px-5 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">Email</th>
               <th className="text-left px-5 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">API Key</th>
+              <th className="text-left px-5 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">Payout Account</th>
               <th className="text-left px-5 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">ID</th>
               <th className="text-left px-5 py-3 text-xs font-semibold text-gray-500 uppercase tracking-wider">Created</th>
             </tr>
@@ -201,7 +228,7 @@ export default function Tenants() {
             {loading
               ? Array.from({ length: 4 }).map((_, i) => (
                   <tr key={i} className="border-b border-gray-800/50">
-                    {Array.from({ length: 5 }).map((_, j) => (
+                    {Array.from({ length: 6 }).map((_, j) => (
                       <td key={j} className="px-5 py-3.5">
                         <div className="h-4 bg-gray-800 rounded animate-pulse" style={{ width: `${60 + Math.random() * 30}%` }} />
                       </td>
@@ -211,7 +238,7 @@ export default function Tenants() {
               : filtered.length === 0
               ? (
                 <tr>
-                  <td colSpan="5" className="px-5 py-12 text-center text-gray-600">
+                  <td colSpan="6" className="px-5 py-12 text-center text-gray-600">
                     {search ? "No tenants match your search" : "No tenants found. Create one to get started."}
                   </td>
                 </tr>
@@ -229,6 +256,9 @@ export default function Tenants() {
                     <td className="px-5 py-3.5 text-gray-400">{t.email}</td>
                     <td className="px-5 py-3.5">
                       <KeyDisplay apiKey={t.api_key || t.apiKey} />
+                    </td>
+                    <td className="px-5 py-3.5">
+                      <PayoutAccount tenant={t} />
                     </td>
                     <td className="px-5 py-3.5 text-gray-600 font-mono text-xs">{t.id}</td>
                     <td className="px-5 py-3.5 text-gray-500 text-xs">
