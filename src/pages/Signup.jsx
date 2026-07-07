@@ -9,6 +9,7 @@ export default function Signup() {
   const [form, setForm] = useState({
     name: "",
     email: "",
+    contact_full_name: "",
     bank_code: "",
     bank_account_number: "",
     bank_account_name: "",
@@ -25,7 +26,11 @@ export default function Signup() {
     setError("");
     setBankWarning("");
     try {
-      const t = await createTenant({ name: form.name, email: form.email });
+      const t = await createTenant({
+        name: form.name,
+        email: form.email,
+        contact_full_name: form.contact_full_name,
+      });
       try {
         const updated = await updateTenant(
           t.id,
@@ -59,7 +64,7 @@ export default function Signup() {
   const reset = () => {
     setTenant(null);
     setBankWarning("");
-    setForm({ name: "", email: "", bank_code: "", bank_account_number: "", bank_account_name: "" });
+    setForm({ name: "", email: "", contact_full_name: "", bank_code: "", bank_account_number: "", bank_account_name: "" });
   };
 
   return (
@@ -93,6 +98,16 @@ export default function Signup() {
                     value={form.name}
                     onChange={(e) => setForm({ ...form, name: e.target.value })}
                     placeholder="Acme Corp"
+                    className={inputClass}
+                  />
+                </div>
+                <div>
+                  <label className="block text-xs font-medium text-gray-400 mb-1.5">Your Full Name *</label>
+                  <input
+                    required
+                    value={form.contact_full_name}
+                    onChange={(e) => setForm({ ...form, contact_full_name: e.target.value })}
+                    placeholder="Jane Doe"
                     className={inputClass}
                   />
                 </div>
