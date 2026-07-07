@@ -16,6 +16,13 @@ export const createTenant = (data) =>
     body: JSON.stringify(data),
   }).then(json);
 
+export const updateTenant = (id, data) =>
+  fetch(`${API_BASE}/tenants/${id}`, {
+    method: "PUT",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data),
+  }).then(json);
+
 // Plans
 export const fetchPlans = (tenantId) =>
   fetch(`${API_BASE}/plans/${tenantId ? `?tenant_id=${tenantId}` : ""}`).then(json);

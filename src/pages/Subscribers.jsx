@@ -283,7 +283,7 @@ function SubscriberDetail({ sub, plans, onClose, onRefresh }) {
             ) : payments.length === 0 ? (
               <p className="text-gray-600 text-sm">No payments found.</p>
             ) : (
-              <div className="rounded-xl border border-gray-800 overflow-hidden">
+              <div className="rounded-xl border border-gray-800 overflow-x-auto">
                 <table className="w-full text-xs">
                   <thead>
                     <tr className="border-b border-gray-800 bg-gray-800/30">
@@ -468,7 +468,7 @@ export default function Subscribers() {
       </div>
 
       {/* Table */}
-      <div className="bg-gray-900 border border-gray-800 rounded-xl overflow-hidden">
+      <div className="bg-gray-900 border border-gray-800 rounded-xl overflow-x-auto">
         <table className="w-full text-sm">
           <thead>
             <tr className="border-b border-gray-800">

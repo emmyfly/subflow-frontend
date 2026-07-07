@@ -8,7 +8,7 @@ export default function Layout({ children }) {
     <div className="flex min-h-screen bg-gray-950">
       <Sidebar open={sidebarOpen} onClose={() => setSidebarOpen(false)} />
 
-      <div className="flex-1 flex flex-col min-h-screen md:ml-56">
+      <div className="flex-1 flex flex-col min-h-screen min-w-0 md:ml-56">
         {/* Mobile top bar */}
         <header className="md:hidden sticky top-0 z-20 flex items-center gap-3 px-4 py-3 bg-gray-900 border-b border-gray-800">
           <button
